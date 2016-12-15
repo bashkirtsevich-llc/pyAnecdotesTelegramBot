@@ -1,5 +1,6 @@
 # Telegream anecdotes bot
 Бот с анекдотами для Telegream, анекдоты хранятся в mongodb.
+
 CSV формат анекдотов для mongodb: cat_translit,category,text.
 В db.journal веедтся журнал использования бота.
 
