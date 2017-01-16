@@ -14,9 +14,9 @@ cat_translit,category,text.
 ## Необходимые компоненты
 pytelegrambotapi:
 ```bash
-pip install pytelegrambotapi
+python -m pip install pytelegrambotapi
 ```
 pymongo:
 ```bash
-pip install pymongo
+python -m pip install pymongo
 ```
