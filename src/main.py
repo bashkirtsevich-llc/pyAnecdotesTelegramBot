@@ -53,7 +53,7 @@ def main():
             return u"Из категории: " + anecdote["category"] + " (/" + anecdote[
                 "cat_translit"] + ")\r\n" + normalize_text(anecdote["text"])
         else:
-            return "Не найдено ничего интересного"
+            return config.not_found_string
 
     def get_anecdote_by_match(match):
         return fetch_anecdote(db.anecdotes.find({"text": re.compile("|".join(
@@ -63,13 +63,24 @@ def main():
     def get_anecdote_by_category(category):
         return fetch_anecdote(db.anecdotes.find({"cat_translit": category}))
 
+    def get_bot_stat():
+        users = db.journal.distinct("user")
+        queries = reduce(lambda r, t: r + "\r\n" + t, db.journal.distinct("text"))
+        return users, queries
+
     bot = telebot.TeleBot(config.token)
 
     @bot.message_handler(commands=["start", "help"])
     def handle_start_help(message):
-        help = "Привет, я бот с кучей анекдотов, отправь мне сообщение с тематикой анекдота " \
-               "и я постараюсь найти тебе что-нибудь, чтоб ты смеялся, сука, до усрачки бля!"
-        bot.send_message(message.chat.id, help)
+        bot.send_message(message.chat.id, config.help_string)
+
+    @bot.message_handler(commands=["stat"])
+    def handle_stat(message):
+        users, queries = get_bot_stat()
+        stat = u"Пользователей:\r\n" + str(len(users)) + "\r\n" +  \
+               u"Запросы:\r\n" + queries
+
+        bot.send_message(message.chat.id, stat)
 
     @bot.message_handler(commands=categories)
     def handle_category(message):
@@ -84,8 +95,8 @@ def main():
     # start polling
     try:
         bot.polling(none_stop=True)
-    except KeyboardInterrupt:
-        pass
+    except KeyboardInterrupt, SystemExit:
+        raise
     except Exception, e:
         write_fail_log(str(e))
         raise
@@ -95,7 +106,7 @@ if __name__ == '__main__':
     while True:
         try:
             main()
-        except KeyboardInterrupt:
+        except KeyboardInterrupt, SystemExit:
             break
         except:
             time.sleep(10)
