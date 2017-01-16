@@ -50,7 +50,7 @@ def main():
     def fetch_anecdote(cursor):
         if cursor.count() > 0:
             anecdote = cursor[random.randrange(cursor.count())]
-            return u"Из категории: " + anecdote["category"] + " (/" + anecdote[
+            return u"РР· РєР°С‚РµРіРѕСЂРёРё: " + anecdote["category"] + " (/" + anecdote[
                 "cat_translit"] + ")\r\n" + normalize_text(anecdote["text"])
         else:
             return config.not_found_string
@@ -77,8 +77,8 @@ def main():
     @bot.message_handler(commands=["stat"])
     def handle_stat(message):
         users, queries = get_bot_stat()
-        stat = u"Пользователей:\r\n" + str(len(users)) + "\r\n" +  \
-               u"Запросы:\r\n" + queries
+        stat = u"РџРѕР»СЊР·РѕРІР°С‚РµР»РµР№:\r\n" + str(len(users)) + "\r\n" +  \
+               u"Р—Р°РїСЂРѕСЃС‹:\r\n" + queries
 
         bot.send_message(message.chat.id, stat)
 
@@ -95,7 +95,9 @@ def main():
     # start polling
     try:
         bot.polling(none_stop=True)
-    except KeyboardInterrupt, SystemExit:
+    except KeyboardInterrupt:
+        raise
+    except SystemExit:
         raise
     except Exception, e:
         write_fail_log(str(e))
@@ -106,7 +108,9 @@ if __name__ == '__main__':
     while True:
         try:
             main()
-        except KeyboardInterrupt, SystemExit:
+        except KeyboardInterrupt:
+            break
+        except SystemExit:
             break
         except:
             time.sleep(10)
