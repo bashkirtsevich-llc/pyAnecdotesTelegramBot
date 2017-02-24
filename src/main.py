@@ -47,7 +47,6 @@ def main():
             break
         except Exception as e:
             base.write_fail_log(str(e))
-            break
 
 
 if __name__ == '__main__':
