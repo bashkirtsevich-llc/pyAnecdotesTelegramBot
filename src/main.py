@@ -11,7 +11,7 @@ def main():
 
     while True:
         try:
-            bot = telebot.TeleBot(config.token)
+            bot = telebot.TeleBot(config.token, threaded=False)
 
             @bot.message_handler(commands=["start", "help"])
             def handle_start_help(message):
