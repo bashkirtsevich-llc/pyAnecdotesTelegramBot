@@ -1,2 +1,2 @@
 sudo service mongod start
-python src/main.py &
+python bot/main.py &
