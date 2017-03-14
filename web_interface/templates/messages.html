@@ -4,7 +4,13 @@
 
 <h1>pyAnecdotesTelegramBot</h1>
 <p>Users messages</p>
-{{messages}}
+<table>
+{% for message in messages %}
+<tr>
+<td>{{message}}</td>
+</tr>
+{% endfor %}
+</table>
 
 </body>
 </html>
