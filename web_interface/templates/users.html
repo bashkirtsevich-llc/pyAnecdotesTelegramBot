@@ -4,7 +4,12 @@
 
 <h1>pyAnecdotesTelegramBot</h1>
 <p>Bot users</p>
-{{users}}
-
+<table>
+{% for user in users %}
+<tr>
+<td>id: {{user["id"]}}</td><td>username: {{user["username"]}}</td><td>first_name: {{user["first_name"]}}</td><td>last_name: {{user["last_name"]}}</td>
+</tr>
+{% endfor %}
+</table>
 </body>
 </html>
