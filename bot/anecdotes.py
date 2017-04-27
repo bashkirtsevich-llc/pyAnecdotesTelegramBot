@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from pymongo import MongoClient
+from pymongo import MongoClient, TEXT
 import random
-import re
 import time
 
 
@@ -11,6 +10,10 @@ class Anecdotes(object):
     def __init__(self):
         self.__client = MongoClient('mongodb://localhost:27017/')
         self.__db = self.__client.anecdotes
+
+        if "$**_text" not in self.__db.anecdotes.index_information():
+            self.__db.anecdotes.create_index([("$**", TEXT)], name="$**_text",
+                                             default_language="russian")
 
         self.__categories = self.__db.anecdotes.distinct("cat_translit")
 
@@ -55,13 +58,7 @@ class Anecdotes(object):
     def get_anecdote_by_match(self, match):
         return self.__fetch_anecdote(
             self.__db.anecdotes.find(
-                {"text":
-                    re.compile(
-                        "|".join(
-                            filter(lambda it: len(it) > 0, match.split(" "))
-                        ), re.IGNORECASE
-                    )
-                }
+                {"$text": {"$search": match}}
             )
         )
 
