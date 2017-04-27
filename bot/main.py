@@ -16,7 +16,7 @@ def main():
             @bot.message_handler(commands=["start", "help"])
             def handle_start_help(message):
                 help_string = "Привет, я бот с кучей анекдотов, отправь мне сообщение с тематикой анекдота " \
-                              "и я постараюсь найти тебе что-нибудь, чтоб ты смеялся, сука, до усрачки бля!"
+                              "и я постараюсь найти тебе что-нибудь, чтоб ты смеялся, сука, до усрачки бля! \xF0\x9F\x98\xA0"
                 bot.send_message(message.chat.id, help_string)
 
             @bot.message_handler(commands=["stat"])
