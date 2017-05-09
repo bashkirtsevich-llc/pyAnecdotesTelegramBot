@@ -2,16 +2,15 @@
 # -*- coding: utf-8 -*-
 
 from anecdotes import Anecdotes
-import config
 import telebot
 
 
-def main():
+def main(token):
     base = Anecdotes()
 
     while True:
         try:
-            bot = telebot.TeleBot(config.token, threaded=False)
+            bot = telebot.TeleBot(token, threaded=False)
 
             @bot.message_handler(commands=["start", "help"])
             def handle_start_help(message):
@@ -50,4 +49,9 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    import sys
+
+    if len(sys.argv) > 1:
+        main(sys.argv[1])
+    else:
+        print "For startup bot, you must run 'python anecdotes_bot.py secret_bot_token'"

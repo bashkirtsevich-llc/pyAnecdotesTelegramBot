@@ -9,14 +9,9 @@ cat_translit,category,text.
 ```
 В db.journal веедтся журнал использования бота.
 
-![alt text](https://raw.githubusercontent.com/bashkirtsevich/pyAnecdotesTelegramBot/master/bot_view.png "bot example")
+![alt text](https://raw.githubusercontent.com/bashkirtsevich/pyAnecdotesTelegramBot/master/bot_view.png "bot interface")
 
-## Необходимые компоненты
-pytelegrambotapi:
+## Необходимые зависимости
 ```bash
-python -m pip install pytelegrambotapi
-```
-pymongo:
-```bash
-python -m pip install pymongo
+pip install -r bot/requirements.txt
 ```
